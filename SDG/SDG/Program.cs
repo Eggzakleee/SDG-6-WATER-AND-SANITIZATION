@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
 namespace SDG6_ShowerGame
@@ -29,7 +29,7 @@ namespace SDG6_ShowerGame
             StartGame();
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void StartGame()
         {
@@ -59,7 +59,7 @@ namespace SDG6_ShowerGame
             EndGame();
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void Intro()
         {
@@ -77,7 +77,7 @@ namespace SDG6_ShowerGame
             Console.ReadKey();
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void DisplayStats()
         {
@@ -100,7 +100,7 @@ namespace SDG6_ShowerGame
             {
                 foreach (string item in history)
                 {
-                    Console.WriteLine("- " + item);
+                    Console.WriteLine("- " + item); // display history
                 }
             }
 
@@ -111,39 +111,41 @@ namespace SDG6_ShowerGame
             Console.WriteLine("[4] Skip Shower");
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void PlayerChoice()
-        {
-            Console.Write("\nEnter choice: ");
-            string choice = Console.ReadLine();
+{
+    Console.Write("\nEnter choice: ");
+    string choice = Console.ReadLine();
 
-            switch (choice)
-            {
-                case "1":
-                    TakeShower("Quick Shower", 15, 15);
-                    break;
+    switch (choice) // player's shower decision
+    {
+        case "1":
+            TakeShower("Quick Shower", 15, 15);
+            break;
 
-                case "2":
-                    TakeShower("Normal Shower", 25, 10);
-                    break;
+        case "2":
+            TakeShower("Normal Shower", 25, 10);
+            break;
 
-                case "3":
-                    TakeShower("Long Shower", 40, -5);
-                    break;
+        case "3":
+            TakeShower("Long Shower", 40, -5);
+            break;
 
-                case "4":
-                    SkipShower();
-                    break;
+        case "4":
+            SkipShower();
+            break;
 
-                default:
-                    Console.WriteLine("\nInvalid choice!");
-                    hygiene -= 5;
-                    break;
-            }
-        }
+        default:
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine("\nInvalid choice!");
+            hygiene -= 5; // penalty
+            Console.ResetColor();
+            break;
+    }
+}
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void TakeShower(string type, int hygieneGain, int scoreGain)
         {
@@ -187,15 +189,19 @@ namespace SDG6_ShowerGame
             // SDG 6 message
             if (type == "Quick Shower")
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Great job conserving water!");
+                Console.ResetColor();
             }
             else if (type == "Long Shower")
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Too much water was wasted!");
+                Console.ResetColor();
             }
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void SkipShower()
         {
@@ -203,11 +209,13 @@ namespace SDG6_ShowerGame
 
             history.Push("Skipped Shower");
 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine("\nYou skipped your shower and played League of Legends.");
             Console.WriteLine("Your hygiene decreased.");
+            Console.ResetColor();
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void RandomEvent()
         {
@@ -218,32 +226,40 @@ namespace SDG6_ShowerGame
             switch (eventChance)
             {
                 case 1:
+                    Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Water Leak!");
                     Console.WriteLine("You lost 10L of water.");
+                    Console.ResetColor();
                     waterSupply -= 10;
                     break;
 
                 case 2:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("You installed a low-flow shower!");
                     Console.WriteLine("+10 score");
+                    Console.ResetColor();
                     score += 10;
                     break;
 
                 case 3:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Community clean water campaign!");
                     Console.WriteLine("+5 hygiene");
+                    Console.ResetColor();
                     hygiene += 5;
                     break;
 
                 case 4:
+                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Rainwater collected!");
                     Console.WriteLine("+15L water supply");
+                    Console.ResetColor();
                     waterSupply += 15;
                     break;
             }
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void CheckStats()
         {
@@ -256,20 +272,24 @@ namespace SDG6_ShowerGame
             // lose conditions
             if (waterSupply <= 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou ran out of water!");
                 Console.WriteLine("Game Over!");
+                Console.ResetColor();
                 Environment.Exit(0);
             }
 
             if (hygiene <= 0)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYour hygiene became too low!");
                 Console.WriteLine("Game Over!");
+                Console.ResetColor();
                 Environment.Exit(0);
             }
         }
 
-        // ---------------------------------------------------
+        // ---------------------------------------------------------------------------------------------------------------------------------------
 
         static void EndGame()
         {
@@ -283,21 +303,29 @@ namespace SDG6_ShowerGame
 
             if (score >= 60)
             {
+                Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.WriteLine("\nExcellent!");
                 Console.WriteLine("You supported SDG 6 successfully!");
+                Console.ResetColor();
             }
             else if (score >= 30)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\nGood Job!");
                 Console.WriteLine("You balanced hygiene and water use.");
+                Console.ResetColor();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("\nYou need to improve your water habits.");
+                Console.ResetColor();
             }
 
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("\nRemember:");
-            Console.WriteLine("\"Every Drop Counts.\"");
+            Console.WriteLine("\"Every Drop Counts!\"");
+            Console.ResetColor();
 
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
